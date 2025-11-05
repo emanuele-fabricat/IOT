@@ -1,5 +1,5 @@
-#ifndef __COMPONENTS__
-#define __COMPONENTS__
+#ifndef __LAMPS__
+#define __LAMPS__
 
 void setLedOn(int i);
 void ledsOff();
@@ -8,7 +8,5 @@ void redPulsingOn();
 void redPulsingOff();
 void redOn();
 void redOff();
-int getPotLev();
-void writeText(char* str);
 
 #endif
