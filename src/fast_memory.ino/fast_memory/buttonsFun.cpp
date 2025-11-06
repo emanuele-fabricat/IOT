@@ -3,12 +3,20 @@
 #include "lamps.h"
 #include <Arduino.h>
 
-int buttonsPin[] = {2, 3, 4, 5};
 bool buttonsPress[] = {false, false, false, false};
 
 void button1Fun() {
-  for (int i = 0; i < 4; i++) {
-    digitalWrite(lampsPin[i], HIGH);
-    Serial.print(i);
-  }
+  buttonsPress[0] = true;
+}
+
+void button2Fun() {
+  buttonsPress[1] = true;
+}
+
+void button3Fun() {
+  buttonsPress[2] = true;
+}
+
+void button4Fun() {
+  buttonsPress[3] = true;
 }

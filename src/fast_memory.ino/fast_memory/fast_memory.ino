@@ -7,14 +7,24 @@
 
 void setup() {
   for (int i = 0; i < 4; i++) {
-    enableInterrupt(buttonsPin[i], button1Fun,RISING);
     pinMode(lampsPin[i], OUTPUT);
   }
+  enableInterrupt(BUTTON_1, button1Fun,RISING);
+  enableInterrupt(BUTTON_2, button2Fun,RISING);
+  enableInterrupt(BUTTON_3, button3Fun,RISING);
+  enableInterrupt(BUTTON_4, button4Fun,RISING);
   pinMode(RED_LED_PIN, OUTPUT);
   pinMode(POTENTIOMETER_PIN, INPUT);
   int t1 = INIT;
   Serial.begin(9600);
 }
 
-void loop() { 
+void loop() {
+  for (int i = 0; i < 4; i++) {
+    if (buttonsPress[i]) {
+      digitalWrite(lampsPin[i], HIGH);
+      Serial.print(i);
+    }
+  }
+  delay(THOUSAND);
 }
