@@ -4,10 +4,10 @@
 extern bool buttonsPress[];
 
 enum ButtonsPin {
-  BUTTON_1  = 2,
-  BUTTON_2  = 3,
-  BUTTON_3  = 5,
-  BUTTON_4  = 7
+  BUTTON_1  = 10,
+  BUTTON_2  = 11,
+  BUTTON_3  = 12,
+  BUTTON_4  = 13
 };
 
 void button1Fun();

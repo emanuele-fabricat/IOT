@@ -1,10 +1,16 @@
 #ifndef __PHASES__
 #define __PHASES__
 
-enum States {
-    SLEEP = 0,
-    WAKE_UP = 1,
-    GAME = 2
+
+enum Phases {
+  WAKE_UP = 0,
+  STARTING_GAME = 1,
+  MEMORIZATION = 2,
+  DIGITATION = 3,
+  GAME_OVER = 4,
+  SLEEP = 5
 };
+
+void playPhase(int i);
 
 #endif

@@ -10,6 +10,7 @@ extern int startTime; //utilizzato per prendere le differenze di tempo
 extern int solution[4]; //array con la combinazione corretta
 extern int guess[4]; //array con la combinazione digitata
 extern int number; //numero delle cifre inserite
+extern int phase; //intero per la fase attuale
 
 enum Times {
     INIT = 5,

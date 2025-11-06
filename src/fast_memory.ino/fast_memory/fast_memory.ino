@@ -14,17 +14,12 @@ void setup() {
   enableInterrupt(BUTTON_3, button3Fun,RISING);
   enableInterrupt(BUTTON_4, button4Fun,RISING);
   pinMode(RED_LED_PIN, OUTPUT);
-  pinMode(POTENTIOMETER_PIN, INPUT);
   int t1 = INIT;
   Serial.begin(9600);
+  writeText("Welcome to TOS! Press B1 to Start");
+  
 }
 
 void loop() {
-  for (int i = 0; i < 4; i++) {
-    if (buttonsPress[i]) {
-      digitalWrite(lampsPin[i], HIGH);
-      Serial.print(i);
-    }
-  }
-  delay(THOUSAND);
+  playPhase(phase);
 }
