@@ -16,8 +16,9 @@ void setup() {
   pinMode(RED_LED_PIN, OUTPUT);
   int t1 = INIT;
   Serial.begin(9600);
+  phase = WAKE_UP;
   writeText("Welcome to TOS! Press B1 to Start");
-  
+
 }
 
 void loop() {

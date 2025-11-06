@@ -14,5 +14,6 @@ void button1Fun();
 void button2Fun();
 void button3Fun();
 void button4Fun();
+void resetButton();
 
 #endif

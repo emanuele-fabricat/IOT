@@ -20,3 +20,9 @@ void button3Fun() {
 void button4Fun() {
   buttonsPress[3] = true;
 }
+
+void resetButton() {
+  for (int i = 0; i < 4; i ++) {
+    buttonsPress[i] = false;
+  }
+}

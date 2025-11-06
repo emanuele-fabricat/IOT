@@ -2,7 +2,9 @@
 #include "pontAndDisp.h"
 #include "config.h"
 
-int getPotLev();
+int getPotLev() {
+  return INIT;
+}
 void writeText(char* str) {
   Serial.print(str);
-};
+}
