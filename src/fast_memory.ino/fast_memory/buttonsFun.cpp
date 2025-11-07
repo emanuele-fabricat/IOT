@@ -21,7 +21,7 @@ void button4Fun() {
   buttonsPress[3] = true;
 }
 
-void resetButton() {
+void resetButtons() {
   for (int i = 0; i < 4; i ++) {
     buttonsPress[i] = false;
   }

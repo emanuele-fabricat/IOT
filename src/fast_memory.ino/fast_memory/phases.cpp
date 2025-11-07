@@ -8,6 +8,7 @@
 
 
 void wakeUp() {
+  /*controllo tempo nel caso andare in sleep phase*/
   redPulsingOn();
   if (buttonsPress[0]) {
     phase = STARTING_GAME;
@@ -63,28 +64,37 @@ void extractNumber() {
   //prendere il tempo
 }
 
+void resetStatus() {
+  number = 0;
+  resetButtons();
+  ledsOff();
+
+}
+
 void attempt() {
-    /*
-    stop interupt
-      lampOn
-      solution
-      number ++
-    start interrupt
-    controllo soluzione
-      totale
-        giusta
-          score ++
-          reset
-          display
-          f ++
-        sbagliata
-          set phase
-          reset
-      parziale
-        sbagliata
-          reset
-    Controllo tempo con T - f
-    */
+  /*Decidere dove iniziare e finire gli interrupt*/
+  bool right = true;
+  for (int i = 0; i < 4; i ++) {
+    if (buttonsPress[i]) {
+      setLedOn(i);
+      guess[number - 1] = i;
+      number ++;
+    }
+  }
+  for (int i = 0; i < number && right; i ++) {
+    if (solution[i] != guess[i]) {
+      resetStatus();
+      right = false;
+      if (number == 4) {
+        phase = GAME_OVER;
+      }
+    } else if (number == 4 && i == 3) {
+      score ++;
+      resetStatus();
+      phase = MEMORIZATION;
+    }
+  }
+  /*Controllo tempo con T - f*/
 }
 
 void lose() {
