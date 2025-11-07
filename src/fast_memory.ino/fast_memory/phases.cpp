@@ -15,7 +15,7 @@ void wakeUp() {
   }
 }
 
-void setUp() {
+void setLV() {
   switch (getPotLev()) {
     case INIT:
       t1 = T_0;
@@ -40,6 +40,13 @@ void setUp() {
   phase = MEMORIZATION;
 }
 
+void resetStatus() {
+  number = 0;
+  resetButtons();
+  ledsOff();
+
+}
+
 void extractNumber() {
   String text = "";
   for (int i = 0; i < 4;) {
@@ -61,24 +68,31 @@ void extractNumber() {
   writeText(text.c_str());
   delay(2 * THOUSAND);
   phase = DIGITATION;
+  resetStatus();
   //prendere il tempo
+  writeText("indovina");
 }
 
-void resetStatus() {
-  number = 0;
-  resetButtons();
-  ledsOff();
-
+void printScore() {
+  String text = "Score ";
+  text += String(score);
+  writeText(text.c_str());
 }
 
 void attempt() {
-  /*Decidere dove iniziare e finire gli interrupt*/
+  /*esci se superato il tempo*/
   bool right = true;
   for (int i = 0; i < 4; i ++) {
     if (buttonsPress[i]) {
       setLedOn(i);
-      guess[number - 1] = i;
-      number ++;
+      bool next = true;
+      for (int j = 0; j < number && next; j ++) {
+        next = guess[j] != i + 1;
+      }
+      if (next) {
+        guess[number] = i + 1;
+        number ++; 
+      }
     }
   }
   for (int i = 0; i < number && right; i ++) {
@@ -86,23 +100,23 @@ void attempt() {
       resetStatus();
       right = false;
       if (number == 4) {
-        phase = GAME_OVER;
+        writeText("wrong");
+        resetStatus();
       }
-    } else if (number == 4 && i == 3) {
+    } else if (number == 4 && right) {
       score ++;
-      resetStatus();
       phase = MEMORIZATION;
+      printScore();
+      right = false;
     }
   }
-  /*Controllo tempo con T - f*/
 }
 
 void lose() {
-  String text = "Score ";
   redOn();
-  text += String(score);
+  printScore();
+  delay(2 * THOUSAND);
   writeText("Game Over");
-  writeText(text.c_str());
   delay(2 * THOUSAND);
   phase = SLEEP;
 }
@@ -119,7 +133,7 @@ void playPhase(int i) {
       wakeUp();
       break;
     case STARTING_GAME:
-      setUp();
+      setLV();
       break;
     case MEMORIZATION:
       extractNumber();

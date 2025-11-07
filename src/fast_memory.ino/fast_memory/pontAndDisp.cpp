@@ -6,5 +6,5 @@ int getPotLev() {
   return INIT;
 }
 void writeText(char* str) {
-  Serial.print(str);
+  Serial.println(str);
 }
