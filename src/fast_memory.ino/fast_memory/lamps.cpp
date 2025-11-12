@@ -4,7 +4,7 @@
 
 int lampsPin[] = {4, 5, 6, 7};
 
-void setLedOn(int i) {
+void setLedOn(const int i) {
   digitalWrite(lampsPin[i], HIGH);
 }
 void ledsOff() {

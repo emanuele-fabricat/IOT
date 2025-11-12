@@ -3,15 +3,18 @@
 
 
 #define THOUSAND 1000
+#include "pontAndDisp.h"
+#include "phases.h"
+
 
 extern int t1;
-extern int f;
-extern int startTime; //utilizzato per prendere le differenze di tempo
-extern int solution[4]; //array con la combinazione corretta
-volatile extern int guess[4]; //array con la combinazione digitata
-volatile extern int number; //numero delle cifre inserite
-extern int phase; //intero per la fase attuale
-extern int score;
+extern int f = 0;
+extern unsigned long startTime = 0; //utilizzato per prendere le differenze di tempo
+extern int solution[4] = {0, 0, 0, 0}; //array con la combinazione corretta
+volatile extern int guess[4] = {0, 0, 0, 0}; //array con la combinazione digitata
+volatile extern int number = 0; //numero delle cifre inserite
+extern int phase = WAKE_UP; //intero per la fase attuale
+extern int score = 0;
 
 enum Mode {
     INIT = 0,

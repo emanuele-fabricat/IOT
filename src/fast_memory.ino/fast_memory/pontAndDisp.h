@@ -12,7 +12,8 @@ enum TimeLevel {
   T_4 = 2 * THOUSAND
 };
 
-int getPotLev();
-void writeText(char* str);
+TimeLevel getTimeLv();
+void writeText(const char* str);
+void printScore();
 
 #endif

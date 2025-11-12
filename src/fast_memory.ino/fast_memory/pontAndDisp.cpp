@@ -2,9 +2,16 @@
 #include "pontAndDisp.h"
 #include "config.h"
 
-int getPotLev() {
-  return INIT;
+int getTimeLv() {
+  analogRead();
 }
-void writeText(char* str) {
+
+void writeText(const char* str) {
   Serial.println(str);
+}
+
+void printScore() {
+  String text = "Score ";
+  text += String(score);
+  writeText(text.c_str());
 }

@@ -5,7 +5,7 @@
 
 extern int lampsPin[];
 
-void setLedOn(int i);
+void setLedOn(const int i);
 void ledsOff();
 void redPulsingOn();
 void redOn();

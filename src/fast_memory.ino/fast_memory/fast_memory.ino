@@ -3,6 +3,7 @@
 #include "pontAndDisp.h"
 #include "lamps.h"
 #include "config.h"
+#include "serviceFunction.h"
 #include <EnableInterrupt.h>
 
 void setup() {
@@ -18,7 +19,7 @@ void setup() {
   Serial.begin(9600);
   phase = WAKE_UP;
   writeText("Welcome to TOS! Press B1 to Start");
-
+  takeTime();
 }
 
 void loop() {

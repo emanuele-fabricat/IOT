@@ -4,14 +4,18 @@
 #include "buttonsFun.h"
 #include "lamps.h"
 #include "pontAndDisp.h"
+#include "serviceFunction.h"
 
 
 
 void wakeUp() {
-  /*controllo tempo nel caso andare in sleep phase*/
-  redPulsingOn();
-  if (buttonsPress[0]) {
-    phase = STARTING_GAME;
+  if (timePass() < 2000) {
+    redPulsingOn();
+    if (buttonsPress[0]) {
+      phase = STARTING_GAME;
+    }
+  } else {
+    phase = SLEEP;
   }
 }
 
@@ -40,12 +44,6 @@ void setLV() {
   phase = MEMORIZATION;
 }
 
-void resetStatus() {
-  number = 0;
-  resetButtons();
-  ledsOff();
-
-}
 
 void extractNumber() {
   String text = "";
@@ -69,46 +67,44 @@ void extractNumber() {
   delay(2 * THOUSAND);
   phase = DIGITATION;
   resetStatus();
-  //prendere il tempo
   writeText("indovina");
-}
-
-void printScore() {
-  String text = "Score ";
-  text += String(score);
-  writeText(text.c_str());
+  takeTime();
 }
 
 void attempt() {
-  /*esci se superato il tempo*/
-  bool right = true;
-  for (int i = 0; i < 4; i ++) {
-    if (buttonsPress[i]) {
-      setLedOn(i);
-      bool next = true;
-      for (int j = 0; j < number && next; j ++) {
-        next = guess[j] != i + 1;
-      }
-      if (next) {
-        guess[number] = i + 1;
-        number ++; 
+  if (timePass() < t1-f){
+    bool right = true;
+    bool actualState[4] = {buttonsPress};
+    for (int i = 0; i < 4; i ++) {
+      if (actualState[i]) {
+        setLedOn(i);
+        bool next = true;
+        for (int j = 0; j < number && next; j ++) {
+          next = guess[j] != i + 1;
+        }
+        if (next) {
+          guess[number] = i + 1;
+          number ++; 
+        }
       }
     }
-  }
-  for (int i = 0; i < number && right; i ++) {
-    if (solution[i] != guess[i]) {
-      resetStatus();
-      right = false;
-      if (number == 4) {
-        writeText("wrong");
+    for (int i = 0; i < number && right; i ++) {
+      if (solution[i] != guess[i]) {
         resetStatus();
+        right = false;
+        if (number == 4) {
+          writeText("wrong");
+          resetStatus();
+        }
+      } else if (number == 4 && right) {
+        score ++;
+        phase = MEMORIZATION;
+        printScore();
+        right = false;
       }
-    } else if (number == 4 && right) {
-      score ++;
-      phase = MEMORIZATION;
-      printScore();
-      right = false;
     }
+  } else {
+    phase = GAME_OVER;
   }
 }
 
