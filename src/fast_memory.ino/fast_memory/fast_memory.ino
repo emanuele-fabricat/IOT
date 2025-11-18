@@ -1,6 +1,6 @@
 #include "buttonsFun.h"
 #include "phases.h"
-#include "pontAndDisp.h"
+#include "analogDevices.h"
 #include "lamps.h"
 #include "config.h"
 #include "serviceFunction.h"
@@ -15,8 +15,8 @@ void setup() {
   enableInterrupt(BUTTON_3, button3Fun,RISING);
   enableInterrupt(BUTTON_4, button4Fun,RISING);
   pinMode(RED_LED_PIN, OUTPUT);
-  int t1 = INIT;
   Serial.begin(9600);
+  int t1 = INIT;
   phase = WAKE_UP;
   writeText("Welcome to TOS! Press B1 to Start");
   takeTime();

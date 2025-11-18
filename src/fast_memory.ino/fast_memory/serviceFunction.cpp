@@ -16,5 +16,5 @@ void takeTime() {
 }
 
 unsigned long timePass() {
-    return startTime-millis();
+    return millis()-startTime;
 }

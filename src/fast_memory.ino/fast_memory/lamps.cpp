@@ -15,9 +15,9 @@ void ledsOff() {
 
 void redPulsingOn() {
   redOn();
-  delay(THOUSAND);
+  delay(ONE_SECOND);
   redOff();
-  delay(THOUSAND);
+  delay(ONE_SECOND);
 }
 
 void redOn() {

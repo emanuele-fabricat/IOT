@@ -3,13 +3,13 @@
 #include "config.h"
 #include "buttonsFun.h"
 #include "lamps.h"
-#include "pontAndDisp.h"
+#include "analogDevices.h"
 #include "serviceFunction.h"
 
 
 
 void wakeUp() {
-  if (timePass() < 2000) {
+  if (timePass() < 2 * ONE_SECOND) {
     redPulsingOn();
     if (buttonsPress[0]) {
       phase = STARTING_GAME;
@@ -20,27 +20,28 @@ void wakeUp() {
 }
 
 void setLV() {
-  switch (getPotLev()) {
-    case INIT:
-      t1 = T_0;
+  PotentiometerLevel pLv = getPotentiometerLv();
+  switch (pLv) {
+    case P_L_0:
+      t1 = INIT;
       break;
-    case LV_1:
+    case P_L_1:
       t1 = T_1;
       break;
-    case LV_2:
+    case P_L_2:
       t1 = T_2;
       break;
-    case LV_3:
+    case P_L_3:
       t1 = T_3;
       break;
-    case LV_4:
+    case P_L_4:
       t1 = T_4;
       break;
     default:
       break;   
   }
   writeText("GO!");
-  delay(THOUSAND);
+  delay(ONE_SECOND);
   phase = MEMORIZATION;
 }
 
@@ -64,7 +65,7 @@ void extractNumber() {
     text += String(solution[i]);
   }
   writeText(text.c_str());
-  delay(2 * THOUSAND);
+  delay(2 * ONE_SECOND);
   phase = DIGITATION;
   resetStatus();
   writeText("indovina");
@@ -72,9 +73,12 @@ void extractNumber() {
 }
 
 void attempt() {
-  if (timePass() < t1-f){
+  if (timePass()  < t1-f){
     bool right = true;
-    bool actualState[4] = {buttonsPress};
+    bool actualState[4] = {};
+    for (int i = 0; i < 4; i ++) {
+      actualState[i] = buttonsPress[i];
+    }
     for (int i = 0; i < 4; i ++) {
       if (actualState[i]) {
         setLedOn(i);
@@ -98,6 +102,7 @@ void attempt() {
         }
       } else if (number == 4 && right) {
         score ++;
+        f = f + ONE_SECOND;
         phase = MEMORIZATION;
         printScore();
         right = false;
@@ -110,17 +115,15 @@ void attempt() {
 
 void lose() {
   redOn();
-  printScore();
-  delay(2 * THOUSAND);
   writeText("Game Over");
-  delay(2 * THOUSAND);
+  delay(2 * ONE_SECOND);
+  printScore();
+  delay(2 * ONE_SECOND);
   phase = SLEEP;
+  redOff();
 }
 
 void sleep() {
-  /*
-  mettere in sleep
-  */
 }
 
 void playPhase(int i) {
