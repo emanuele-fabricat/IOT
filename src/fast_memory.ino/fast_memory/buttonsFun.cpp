@@ -5,24 +5,30 @@
 
 bool buttonsPress[] = {false, false, false, false};
 
-void button1Fun() {
+void button1Fun()
+{
   buttonsPress[0] = true;
 }
 
-void button2Fun() {
+void button2Fun()
+{
   buttonsPress[1] = true;
 }
 
-void button3Fun() {
+void button3Fun()
+{
   buttonsPress[2] = true;
 }
 
-void button4Fun() {
+void button4Fun()
+{
   buttonsPress[3] = true;
 }
 
-void resetButtons() {
-  for (int i = 0; i < 4; i ++) {
+void resetButtons()
+{
+  for (int i = 0; i < 4; i++)
+  {
     buttonsPress[i] = false;
   }
 }
