@@ -1,6 +1,10 @@
 #include <Arduino.h>
 #include "analogDevices.h"
 #include "config.h"
+#include <LiquidCrystal_I2C.h>
+
+
+LiquidCrystal_I2C lcd(0x27,20,4);
 
 PotentiometerLevel getPotentiometerLv() {
   if (analogRead(POTENTIOMETER_PIN) == 0) {
@@ -17,7 +21,9 @@ PotentiometerLevel getPotentiometerLv() {
 }
 
 void writeText(const char* str) {
-  Serial.println(str);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(str);
 }
 
 void printScore() {

@@ -1,8 +1,11 @@
 #ifndef __ANALOG_DEVICES__
 #define __ANALOG_DEVICES__
 #include "config.h"
+#include <LiquidCrystal_I2C.h> 
 
 #define POTENTIOMETER_PIN A2
+
+extern LiquidCrystal_I2C lcd;
 
 enum PotentiometerLevel {
   P_L_0 = 0,
