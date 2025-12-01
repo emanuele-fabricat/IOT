@@ -7,11 +7,16 @@
 #include "analogDevices.h"
 #include "serviceFunction.h"
 
-
+#define SLEEPING_SECONDS 2
+#define GOOD_NIGHT_SECONDS 2
+#define MEMORIZING_SECONDS 2
+#define INCREMENT_OF_F 1
+#define GAME_OVER_SECONDS 2
+#define SCORE_SECONDS 2
 
 void start() {
   writeText("Welcome to TOS! Press B1 to Start");
-  if (timePass() < 2 * ONE_SECOND) {
+  if (timePass() < SLEEPING_SECONDS * ONE_SECOND) {
     redPulsingOn();
     if (buttonsPress[0]) {
       phase = STARTING_GAME;
@@ -19,7 +24,7 @@ void start() {
   } else {
     phase = SLEEP;
     writeText("GOOD NIGHT");
-    delay(2 * ONE_SECOND);
+    delay(GOOD_NIGHT_SECONDS * ONE_SECOND);
   }
 }
 
@@ -69,7 +74,7 @@ void extractNumber() {
     text += String(solution[i]);
   }
   writeText(text.c_str());
-  delay(2 * ONE_SECOND);
+  delay(MEMORIZING_SECONDS * ONE_SECOND);
   phase = DIGITATION;
   resetStatus();
   writeText("indovina");
@@ -106,9 +111,10 @@ void attempt() {
         }
       } else if (number == 4 && right) {
         score ++;
-        f = f + ONE_SECOND;
+        f = f + INCREMENT_OF_F * ONE_SECOND;
         phase = MEMORIZATION;
         printScore();
+        delay(SCORE_SECONDS * ONE_SECOND);
         right = false;
       }
     }
@@ -120,13 +126,13 @@ void attempt() {
 void lose() {
   redOn();
   writeText("Game Over");
-  delay(2 * ONE_SECOND);
+  delay(GAME_OVER_SECONDS * ONE_SECOND);
   printScore();
-  delay(2 * ONE_SECOND);
+  delay(SCORE_SECONDS * ONE_SECOND);
   phase = SLEEP;
   redOff();
   writeText("GOOD NIGHT");
-  delay(2 * ONE_SECOND);
+  delay(GOOD_NIGHT_SECONDS * ONE_SECOND);
 }
 
 void sleep() {

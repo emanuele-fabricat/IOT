@@ -4,6 +4,5 @@
 void resetStatus();
 void takeTime();
 unsigned long timePass();
-void wakeUp();
 
 #endif
