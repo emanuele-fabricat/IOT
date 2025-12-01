@@ -1,5 +1,6 @@
 #include "phases.h"
 #include <Arduino.h>
+#include <avr/sleep.h>
 #include "config.h"
 #include "buttonsFun.h"
 #include "lamps.h"
@@ -8,7 +9,8 @@
 
 
 
-void wakeUp() {
+void start() {
+  writeText("Welcome to TOS! Press B1 to Start");
   if (timePass() < 2 * ONE_SECOND) {
     redPulsingOn();
     if (buttonsPress[0]) {
@@ -16,6 +18,8 @@ void wakeUp() {
     }
   } else {
     phase = SLEEP;
+    writeText("GOOD NIGHT");
+    delay(2 * ONE_SECOND);
   }
 }
 
@@ -121,6 +125,8 @@ void lose() {
   delay(2 * ONE_SECOND);
   phase = SLEEP;
   redOff();
+  writeText("GOOD NIGHT");
+  delay(2 * ONE_SECOND);
 }
 
 void sleep() {
@@ -129,7 +135,7 @@ void sleep() {
 void playPhase(int i) {
   switch (i) {
     case WAKE_UP:
-      wakeUp();
+      start();
       break;
     case STARTING_GAME:
       setLV();

@@ -18,3 +18,5 @@ void takeTime() {
 unsigned long timePass() {
     return millis()-startTime;
 }
+
+void wakeUp() {}
