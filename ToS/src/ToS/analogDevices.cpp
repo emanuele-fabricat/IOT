@@ -20,14 +20,23 @@ PotentiometerLevel getPotentiometerLv() {
   }
 }
 
-void writeText(const char* str) {
-  lcd.clear();
-  lcd.setCursor(0, 0);
+void writeText(const char* str, int row) {
+  switch(row) {
+    case FIRST_ROW:
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      break;
+    case SECOND_ROW:
+      lcd.setCursor(0, 1);
+      break;
+    defoult:
+      break;
+  }
   lcd.print(str);
 }
 
 void printScore() {
   String text = "Score ";
   text += String(score);
-  writeText(text.c_str());
+  writeText(text.c_str(), FIRST_ROW);
 }

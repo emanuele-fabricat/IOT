@@ -6,16 +6,16 @@
 #include "lamps.h"
 #include "analogDevices.h"
 #include "serviceFunction.h"
+#include "interrupts.h"
 
 #define SLEEPING_SECONDS 2
 #define GOOD_NIGHT_SECONDS 2
 #define MEMORIZING_SECONDS 2
-#define INCREMENT_OF_F 1
+#define INCREMENT_OF_F 0.5
 #define GAME_OVER_SECONDS 2
 #define SCORE_SECONDS 2
 
 void start() {
-  writeText("Welcome to TOS! Press B1 to Start");
   if (timePass() < SLEEPING_SECONDS * ONE_SECOND) {
     redPulsingOn();
     if (buttonsPress[0]) {
@@ -23,7 +23,7 @@ void start() {
     }
   } else {
     phase = SLEEP;
-    writeText("GOOD NIGHT");
+    writeText("GOOD NIGHT", FIRST_ROW);
     delay(GOOD_NIGHT_SECONDS * ONE_SECOND);
   }
 }
@@ -49,7 +49,7 @@ void setLV() {
     default:
       break;   
   }
-  writeText("GO!");
+  writeText("GO!", FIRST_ROW);
   delay(ONE_SECOND);
   phase = MEMORIZATION;
 }
@@ -73,11 +73,11 @@ void extractNumber() {
   for (int i = 0; i < 4; i ++) {
     text += String(solution[i]);
   }
-  writeText(text.c_str());
+  writeText(text.c_str(), FIRST_ROW);
   delay(MEMORIZING_SECONDS * ONE_SECOND);
   phase = DIGITATION;
   resetStatus();
-  writeText("indovina");
+  writeText("indovina", FIRST_ROW);
   takeTime();
 }
 
@@ -106,7 +106,7 @@ void attempt() {
         resetStatus();
         right = false;
         if (number == 4) {
-          writeText("wrong");
+          writeText("wrong", FIRST_ROW);
           resetStatus();
         }
       } else if (number == 4 && right) {
@@ -125,17 +125,34 @@ void attempt() {
 
 void lose() {
   redOn();
-  writeText("Game Over");
+  writeText("Game Over", FIRST_ROW);
   delay(GAME_OVER_SECONDS * ONE_SECOND);
   printScore();
   delay(SCORE_SECONDS * ONE_SECOND);
   phase = SLEEP;
   redOff();
-  writeText("GOOD NIGHT");
+  writeText("GOOD NIGHT", FIRST_ROW);
   delay(GOOD_NIGHT_SECONDS * ONE_SECOND);
 }
 
 void sleep() {
+  writeText("", FIRST_ROW);
+  lcd.noBacklight();
+  ledsOff();
+  sleepingInterrupts();
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);  
+  sleep_enable();
+  sleep_mode();  
+  sleep_disable(); 
+  turningOnInterrupts();
+  phase = WAKE_UP;
+  lcd.backlight();
+  resetStatus();
+  writeText("Welcome to TOS!", FIRST_ROW);
+  writeText("Press B1 to Start", SECOND_ROW);
+  f = 0;
+  score = 0;
+  takeTime();
 }
 
 void playPhase(int i) {

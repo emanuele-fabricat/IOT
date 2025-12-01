@@ -1,5 +1,5 @@
-void inGame();
+void inGameInterrupts();
 
-void sleepping();
+void sleepingInterrupts();
 
-void turningOn();
+void turningOnInterrupts();

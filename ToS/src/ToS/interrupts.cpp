@@ -3,7 +3,7 @@
 #include "interrupts.h"
 #include "buttonsFun.h"
 
-void inGame(){
+void inGameInterrupts(){
     enableInterrupt(BUTTON_1, button1Fun, RISING);
     enableInterrupt(BUTTON_2, button2Fun, RISING);
     enableInterrupt(BUTTON_3, button3Fun, RISING);
@@ -12,12 +12,12 @@ void inGame(){
 
 void wakeUp(){}
 
-void sleepping(){
+void sleepingInterrupts(){
     disableInterrupt(BUTTON_1);
     enableInterrupt(BUTTON_1, wakeUp, RISING);
 }
 
-void turningOn(){
+void turningOnInterrupts(){
     disableInterrupt(BUTTON_1);
     enableInterrupt(BUTTON_1, button1Fun, RISING);
 }

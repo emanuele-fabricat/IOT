@@ -4,6 +4,8 @@
 #include <LiquidCrystal_I2C.h> 
 
 #define POTENTIOMETER_PIN A2
+#define FIRST_ROW 0
+#define SECOND_ROW 1
 
 extern LiquidCrystal_I2C lcd;
 
@@ -16,7 +18,7 @@ enum PotentiometerLevel {
 };
 
 PotentiometerLevel getPotentiometerLv();
-void writeText(const char* str);
+void writeText(const char* str, int row);
 void printScore();
 
 #endif
