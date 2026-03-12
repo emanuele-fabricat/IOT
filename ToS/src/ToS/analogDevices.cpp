@@ -29,7 +29,7 @@ void writeText(const char* str, int row) {
     case SECOND_ROW:
       lcd.setCursor(0, 1);
       break;
-    defoult:
+    default:
       break;
   }
   lcd.print(str);
