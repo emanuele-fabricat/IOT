@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include "Scheduler.h"
-#include "actuators/Lcd.h"
+#include "actuators/RedLed.h"
 
 void setup() {
 }
 
 void loop() {
+    RedLed* led = new RedLed();
+    led->test();
 }
