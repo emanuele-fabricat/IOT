@@ -1,13 +1,13 @@
 #include <Arduino.h>
 
-class RedLed
+class Led
 {
 private:
-    const int pin = 7;
+    int pin;
 public:
-    RedLed();
+    Led(const int pin);
     void On();
     void off();
     void test();
-    ~RedLed();
+    ~Led();
 };

@@ -1,21 +1,22 @@
-#include "RedLed.h"
+#include "Led.h"
 
-RedLed::RedLed(/* args */)
+Led::Led(const int pin)
 {
+    this->pin = pin;
     pinMode(pin, OUTPUT);
 }
 
-void RedLed::On()
+void Led::On()
 {
     digitalWrite(pin, HIGH);
 }
 
-void RedLed::off()
+void Led::off()
 {
     digitalWrite(pin, LOW);
 }
 
-void RedLed::test()
+void Led::test()
 {
     On();
     delay(2000);
@@ -23,6 +24,6 @@ void RedLed::test()
     delay(2000);
 }
 
-RedLed::~RedLed()
+Led::~Led()
 {
 }
