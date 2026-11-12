@@ -6,7 +6,13 @@ public class ViewerPanel extends javax.swing.JPanel {
 
     private void initComponents() {
         this.setLayout(new java.awt.GridLayout());
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.viewers.add(new StatusView());
+        this.viewers.add(new DistanceView());
+        this.viewers.add(new LogView());
+        for (Viewer v : viewers) {
+            this.add((java.awt.Component) v);
+            v.setString("prova");
+        }
     }
 
     
